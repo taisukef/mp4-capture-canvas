@@ -1,5 +1,7 @@
-import { HME } from "https://taisukef.github.io/h264-mp4-encoder.es/h264-mp4-encoder.es.js";
-import { downloadFile } from "https://js.sabae.cc/downloadFile.js";
+//import { HME } from "https://taisukef.github.io/h264-mp4-encoder.es/h264-mp4-encoder.es.js";
+//import { downloadFile } from "https://js.sabae.cc/downloadFile.js";
+let HME;
+let downloadFile;
 
 // based on https://github.com/abagames/gif-capture-canvas
 
@@ -55,6 +57,10 @@ const capture = async (canvas) => {
   len--;
   if (len == 0) {
     console.log("encoding...");
+    if (!HME) {
+      HME = (await import("https://taisukef.github.io/h264-mp4-encoder.es/h264-mp4-encoder.es.js")).HME;
+      downloadFile = (await import("https://js.sabae.cc/downloadFile.js")).downloadFile;
+    }
     const encoder = await HME.createH264MP4Encoder();
     const img0 = imgs[0];
     encoder.width = img0.width;
